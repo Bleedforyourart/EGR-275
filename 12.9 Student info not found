@@ -1,0 +1,90 @@
+#include <string>
+#include <iostream>
+#include <stdexcept>
+#include <fstream>
+using namespace std;
+
+string FindID(string name, ifstream &infoFS) {
+   bool foundID = false;
+   string userInput;
+   
+   infoFS >> userInput;
+      while (infoFS) {
+         if (userInput == name){
+            foundID = true;
+            infoFS >> userInput;
+            return userInput;
+            break;
+         }
+         else { 
+            infoFS >> userInput; 
+         }
+      }
+   if (foundID == false) {
+      throw runtime_error("Student ID not found for " + name);
+   }   
+   return "";
+}
+
+string FindName(string ID, ifstream &infoFS) {
+   bool foundName = false;
+   string previousInput;
+   string userInput;
+   
+      infoFS >> previousInput;
+      infoFS >> userInput;
+      while (infoFS){
+         
+         if (userInput == ID){
+            foundName = true;
+            return previousInput;
+            break;
+         }
+         else { 
+            previousInput = userInput;
+            infoFS >> userInput; 
+         }
+      }
+   if (foundName == false) {
+      throw std::runtime_error("Student name not found for " + ID);
+   }  
+   return "";
+}
+
+int main() {
+   int userChoice;
+   string studentName;
+   string studentID;
+   string studentInfoFileName;
+   ifstream studentInfoFS;
+   
+   // Read the text file name from user
+   cin >> studentInfoFileName;
+   
+   // Open the text file
+   studentInfoFS.open(studentInfoFileName);
+   
+   // Read search option from user. 0: FindID(), 1: FindName()
+   cin >> userChoice;
+
+   try 
+   {
+      if (userChoice == 0) {
+         cin >> studentName;
+         studentID = FindID(studentName, studentInfoFS);
+         cout << studentID << endl;
+      }
+      else {
+         cin >> studentID;
+         studentName = FindName(studentID, studentInfoFS);
+         cout << studentName << endl;
+      }
+   }
+   catch ( const std::runtime_error& excp )
+   {
+      cout << excp.what() << endl;
+   } 
+         
+   studentInfoFS.close();
+   return 0;
+}
