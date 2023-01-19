@@ -1,0 +1,7 @@
+                      | tire  | hdng  | car   | delta
+time: | x:    | y:    | angle:| theta:| vlcty:| dot:
+
+The car has stopped. Here are the final results:
+travel                   tire  | hdng
+time:  | x:    | y:    | angle:| theta:
+0 , 0.000 , 0.000 , 0.125 , 0.000
